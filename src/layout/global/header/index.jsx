@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../../../components/button";
 import Input from "../../../components/input";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import NavButton from "../../../components/NavButton";
 const Header = () => {
   return (
     <>
@@ -16,14 +17,14 @@ const Header = () => {
             <Input
               type="search"
               placeholder="محصول مورد نظر را جستجو کنید ..."
-              className="h-[50px] w-[518px] rounded-[50px] border-[#BAB9B9] border-[1px] px-2"
+              className="h-[50px] w-[518px] rounded-[50px] border-[#BAB9B9] border-[1px] px-2 outline-none"
             />
           </div>
           <div className="flex items-center w-[315px] justify-around">
             <a>ورود/عضویت</a>
             <Button className="flex items-center h-[40px] w-[170px] justify-center ">
-              <div className="flex items-center justify-center p-2">
-                <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px] ">
+              <div className="flex items-center justify-center p-1 gap-1">
+                <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
                   1
                 </div>
                 <AiOutlineShoppingCart />
@@ -32,7 +33,12 @@ const Header = () => {
             </Button>
           </div>
         </div>
-        <nav></nav>
+        <nav className="bg-backgrey h-[50px] flex items-center justify-center">
+          <NavButton>دستبند</NavButton>
+          <NavButton>گردنبند</NavButton>
+          <NavButton>گوشواره</NavButton>
+          <NavButton>انگشتر</NavButton>
+        </nav>
       </header>
     </>
   );
