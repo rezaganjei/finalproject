@@ -1,7 +1,9 @@
+import Header from "./layout/global/header";
+
 function App() {
   return (
     <>
-      <div>سبیسبسیبسبسیبسیب</div>
+      <Header />
     </>
   );
 }
