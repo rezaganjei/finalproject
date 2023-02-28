@@ -5,6 +5,7 @@ function App() {
   return (
     <>
       <Header />
+      <div className="h-screen mb-48"></div>
       <Footer />
     </>
   );

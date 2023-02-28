@@ -2,3 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 @import url("./global.css");
+@import url("./components/footerButton.css");
