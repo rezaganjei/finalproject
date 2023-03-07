@@ -30,7 +30,7 @@ const LoginPage = () => {
         dispatch(
           login({
             accessToken: res.data.accessToken,
-            refreshToke: res.data.refreshToken,
+            refreshToken: res.data.refreshToken,
           })
         )
       )

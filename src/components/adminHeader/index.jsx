@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import NavButton from "../../components/NavButton";
 import Button from "../button";
 import { logout } from "../../redux/reducers/adminAuth/adminAuth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -44,13 +44,21 @@ const BurgerMenu = ({ isOpen, setIsOpen }) => {
 };
 
 const AdminHeader = () => {
+  const accessToken = useSelector(
+    (state) => state.adminAuth.adminAuth.accessToken
+  );
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHandler = () => {
     dispatch(logout());
-    navigate("/login");
   };
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+  }, [accessToken]);
   return (
     <>
       <BurgerMenu isOpen={isBurgerMenuOpen} setIsOpen={setIsBurgerMenuOpen} />
