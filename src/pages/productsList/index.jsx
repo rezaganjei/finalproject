@@ -32,7 +32,7 @@ const ProductsList = () => {
               >
                 <td className="border-l border-tertiary">{item.name}</td>
                 <td className="border-l border-tertiary">
-                  {item.price.toLocaleString()}
+                  {item.price.toLocaleString("fa-IR")}
                 </td>
                 <td>{item.quantity}</td>
               </tr>

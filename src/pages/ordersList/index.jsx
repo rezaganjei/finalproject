@@ -14,7 +14,9 @@ const OrdersList = () => {
   };
   useEffect(orderGetter, []);
   const productEditClickHandler = () => {
-    instance.put();
+    instance
+      .put("/orders", { delivered: true })
+      .then((res) => console.log(res));
   };
   return (
     <div className="flex flex-col items-center my-16 gap-8">
@@ -37,8 +39,20 @@ const OrdersList = () => {
                 key={item.id}
               >
                 <td className="border-l border-tertiary">{item.lastname}</td>
-                <td className="border-l border-tertiary">{item.prices}</td>
-                <td className="border-l border-tertiary">{item.createdAt}</td>
+                <td className="border-l border-tertiary">
+                  {item.prices.toLocaleString("fa-IR")}
+                </td>
+
+                <td className="border-l border-tertiary">
+                  {new Intl.DateTimeFormat("fa-IR", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                  }).format(item.createdAt)}
+                </td>
                 <td className="border-l border-tertiary">
                   {!item.delivered ? "بررسی" : "تحویل شده"}
                 </td>
