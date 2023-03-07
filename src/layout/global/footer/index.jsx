@@ -4,12 +4,11 @@ import { AiFillApple } from "react-icons/ai";
 import { AiFillAndroid } from "react-icons/ai";
 import Button from "../../../components/button";
 import FooterButton from "../../../components/FooterButton";
-import Input from "../../../components/input";
 
 const Footer = () => {
   return (
     <>
-      <div className="absolutes bottom-0 w-full">
+      <div className="w-full">
         <div className="flex flex-col items-start gap-1 md:flex-row md:gap-0 md:justify-between bg-tertiary md:h-[60px] md:items-center text-[#FFFFFF] text-base p-2">
           <p>ساعت پاسخگویی پشتیبانی شنبه تا پنج‌شنبه 9 تا 17</p>
           <div
@@ -20,7 +19,7 @@ const Footer = () => {
             شماره تماس: 09122633318
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row items-start justify-between md:h-[300px] md:h-auto lg:h-[248px] pt-12 px-[15px]">
+        <div className="flex flex-col lg:flex-row items-start justify-between md:h-[300px]  lg:h-[248px] pt-12 px-[15px]">
           <div className="flex flex-wrap md:flex-nowrap text-textgrey gap-[30px]">
             <div>
               <p className="font-extrabold mb-8">خدمات مشتریان</p>
@@ -61,7 +60,7 @@ const Footer = () => {
 
           <div className="flex flex-col m-auto w-2/3 md:w-[420px] justify-center items-center gap-3 lg:m-0 mb-2">
             <p>از جدیدترین محصولات و تخفیف ها مطلع شوید</p>
-            <Input
+            <input
               placeholder="برای عضویت در خبرنامه ایمیل خود را بنویسید . . ."
               className="text-textgrey bg-backgrey outline-0 h-[50px] w-full rounded-[5px] px-2"
             />

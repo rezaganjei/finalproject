@@ -7,7 +7,11 @@ const NavButton = ({ variant = "primary", className, children, ...props }) => {
     <>
       <button
         {...props}
-        className={`flex items-center mx-4 text-[#555555] hover:text-primary ${className}`}
+        className={
+          variant === "admin"
+            ? "text-white"
+            : `flex items-center mx-4 text-[#555555] hover:text-primary ${className}`
+        }
       >
         {children}
         {variant === "primary" ? (
