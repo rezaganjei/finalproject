@@ -8,6 +8,7 @@ import LoginPage from "./pages/login";
 import ProductsList from "./pages/productsList";
 import OrdersList from "./pages/ordersList";
 import ErrorPage from "./pages/errorPage";
+import HomePage from "./pages/homePage";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Slider />
+        <HomePage />
       </>
     ),
     errorElement: <ErrorPage />,

@@ -52,6 +52,7 @@ const LoginPage = () => {
       >
         <label htmlFor="username">نام کاربری خود را وارد کنید</label>
         <input
+          className="h-[43px] w-4/5 lg:w-[396px] rounded-[10px] border-2 border-backgrey pr-4"
           {...register("username", {
             required: "این فیلد اجباری می باشد",
             minLength: {
@@ -70,8 +71,9 @@ const LoginPage = () => {
           <p className="text-xs text-primary">{errors.username.message}</p>
         )}
 
-        <label htmlFor="username">رمز عبور خود را وارد کنید</label>
+        <label htmlFor="password">رمز عبور خود را وارد کنید</label>
         <input
+          className="h-[43px] w-4/5 lg:w-[396px] rounded-[10px] border-2 border-backgrey pr-4"
           {...register("password", {
             required: "این فیلد اجباری می باشد",
             minLength: {
