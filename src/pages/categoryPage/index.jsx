@@ -21,7 +21,7 @@ const CategoryPage = ({ cat }) => {
       <div className="flex flex-col items-center md:flex-row md:justify-center flex-wrap">
         {selectedCategoryProducts.map((item) => {
           return (
-            <div className="w-[200px] md:w-[19%]" key={item.id}>
+            <div className="w-[200px] lg:w-[19%]" key={item.id}>
               <ProductCard
                 dataObject={item}
                 className="border-2 border-backgrey m-2 rounded-[10px] p-2"
