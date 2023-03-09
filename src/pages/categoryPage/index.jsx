@@ -17,11 +17,15 @@ const CategoryPage = ({ cat }) => {
   );
   return (
     <>
+      <h1 className="text-center p-16">{cat}</h1>
       <div className="flex flex-col items-center md:flex-row md:justify-center flex-wrap">
         {selectedCategoryProducts.map((item) => {
           return (
             <div className="w-[200px] md:w-[19%]" key={item.id}>
-              <ProductCard dataObject={item} />
+              <ProductCard
+                dataObject={item}
+                className="border-2 border-backgrey m-2 rounded-[10px] p-2"
+              />
             </div>
           );
         })}

@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <CategoryPage cat={"انگشتر"} />
+        <CategoryPage cat={"دستبند"} />
       </>
     ),
     errorElement: <ErrorPage />,
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <div>necklace page</div>
+        <div className="h-[50vh] text-center p-48">هیچ محصولی یافت نشد</div>
       </>
     ),
     errorElement: <ErrorPage />,
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <div>earing page</div>
+        <CategoryPage cat={"گوشواره"} />
       </>
     ),
     errorElement: <ErrorPage />,
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <div>ring page</div>
+        <CategoryPage cat={"انگشتر"} />
       </>
     ),
     errorElement: <ErrorPage />,
