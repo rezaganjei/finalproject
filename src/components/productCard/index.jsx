@@ -16,12 +16,15 @@ const ProductCard = ({
   return (
     <button {...props} className={cardClassName} key={dataObject.id}>
       <div className="w-full flex justify-center ">
-        <img src={`${dataObject.image}`} className="w-full " />
+        <img
+          src={`http://localhost:3002${dataObject.image}`}
+          className="w-full "
+        />
       </div>
       <div>
         <h4 className=" pb-[29px]">{dataObject.name}</h4>
         <p className="text-[14px] font-bold">
-          {(+dataObject.price).toLocaleString("fa-IR")}
+          {(+dataObject.price).toLocaleString("fa-IR") + " تومان"}
         </p>
       </div>
     </button>

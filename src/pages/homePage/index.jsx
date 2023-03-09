@@ -9,7 +9,9 @@ const HomePage = () => {
       <Slider />
       <InfoCardHolder />
       <CategoryCard category={"دستبند"} path={"/bracelet"} />
-      <CategoryCard category={"گردنبند"} path={"/necklace"} />
+      {/* <CategoryCard category={"گردنبند"} path={"/necklace"} /> */}
+      <CategoryCard category={"گوشواره"} path={"/earings"} />
+      <CategoryCard category={"انگشتر"} path={"/rings"} />
     </>
   );
 };

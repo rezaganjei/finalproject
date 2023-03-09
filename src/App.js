@@ -9,6 +9,7 @@ import ProductsList from "./pages/productsList";
 import OrdersList from "./pages/ordersList";
 import ErrorPage from "./pages/errorPage";
 import HomePage from "./pages/homePage";
+import CategoryPage from "./pages/categoryPage";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <div>bracelet page</div>
+        <CategoryPage cat={"انگشتر"} />
       </>
     ),
     errorElement: <ErrorPage />,

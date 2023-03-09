@@ -3,20 +3,31 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Button from "../../components/button";
 import { instance } from "../../libs/axiosInstance";
+import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const AddProduct = ({ isOpen, setIsOpen }) => {
+  const [imageValue, setImageValue] = useState();
   const {
     register,
     handleSubmit,
-    control,
+
+    setValue,
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const accessToken = useSelector(
     (state) => state.adminAuth.adminAuth.accessToken
   );
   const addProductSubmitHandler = (e) => {
+    const bodyFormData = new FormData();
+    bodyFormData.append("name", e.name);
+    bodyFormData.append("brand", e.brand);
+    bodyFormData.append("price", e.price);
+    bodyFormData.append("image", e.image);
+
+    console.log(e);
     instance
-      .post("/products", e)
+      .post("/products", bodyFormData)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -79,12 +90,18 @@ const AddProduct = ({ isOpen, setIsOpen }) => {
 
               <input
                 className="h-[43px] w-4/5  rounded-[10px] border-2 border-backgrey pr-4"
-                {...register("image", {
-                  required: "این فیلد اجباری می باشد",
-                })}
+                // {...register("image", {
+                //   required: "این فیلد اجباری می باشد",
+                // })}
                 type="file"
                 placeholder="تصویر..."
+                onChange={(e) => {
+                  setValue("image", e.target.files[0]);
+                  setImageValue(e.target.value);
+                }}
+                value={imageValue}
               />
+
               {errors.image && (
                 <p className="text-xs text-primary">{errors.image.message}</p>
               )}
@@ -97,9 +114,17 @@ const AddProduct = ({ isOpen, setIsOpen }) => {
   );
 };
 
+// const EditProduct = () => {
+//   return <>{isOpen && <></>}</>;
+// };
+
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const [editProductData, setEditProductData] = useState();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const accessToken = useSelector(
+    (state) => state.adminAuth.adminAuth.accessToken
+  );
 
   const productsGetter = () => {
     instance
@@ -116,9 +141,11 @@ const ProductsList = () => {
       <table className=" w-4/5 mx-auto  border border-secondary rounded-lg text-center ">
         <thead className="w-full">
           <tr className="w-full bg-tertiary text-white h-12">
-            <td className="w-2/3">نام محصول</td>
+            <td>نام محصول</td>
             <td>قیمت</td>
             <td>موجودی</td>
+            <td>ویرایش</td>
+            <td>حذف</td>
           </tr>
         </thead>
         <tbody>
@@ -132,7 +159,28 @@ const ProductsList = () => {
                 <td className="border-l border-tertiary">
                   {(+item.price).toLocaleString("fa-IR")}
                 </td>
-                <td>{item.quantity}</td>
+                <td className="border-l border-tertiary">
+                  {item.quantity || 50}
+                </td>
+                <td className=" text-primary border-l border-tertiary">
+                  <FaEdit
+                    className="mx-auto"
+                    // onClick={setEditProductData({ isShow: true, ...item })}
+                  />
+                </td>
+                <td className="text-primary">
+                  <RiDeleteBin6Line
+                    className="mx-auto"
+                    onClick={() => {
+                      instance
+                        .delete(`/products/${item.id}`, {
+                          headers: { token: accessToken },
+                        })
+                        .then((res) => console.log(res))
+                        .catch((err) => console.log(err));
+                    }}
+                  />
+                </td>
               </tr>
             );
           })}

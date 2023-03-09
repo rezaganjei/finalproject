@@ -62,11 +62,11 @@ const CategoryCard = ({ category, path }) => {
         {category}
       </h1>
       <Link to={path}>
-        <div className="flex flex-nowrap">
-          {dummydata.map((item) => {
+        <div className="flex flex-col items-center md:flex-row md:justify-center flex-wrap">
+          {productsData.map((item) => {
             if (item.brand === category) {
               return (
-                <div className="w-[23%]" key={item.id}>
+                <div className="w-[200px] md:w-[19%]" key={item.id}>
                   <ProductCard dataObject={item} />
                 </div>
               );

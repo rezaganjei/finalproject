@@ -33,7 +33,6 @@ const BurgerMenu = ({ isOpen, setIsOpen }) => {
                 <Link to="/admin/orderslist">
                   <NavButton variant="admin">لیست سفارشات</NavButton>
                 </Link>
-                <NavButton variant="admin">موجودی و قیمت ها</NavButton>
               </div>
             </nav>
           </div>
@@ -81,7 +80,6 @@ const AdminHeader = () => {
           <Link to="/admin/orderslist">
             <NavButton variant="admin">لیست سفارشات</NavButton>
           </Link>
-          <NavButton variant="admin">موجودی و قیمت ها</NavButton>
         </div>
         <div>
           <Button onClick={logoutHandler}>خروج</Button>

@@ -24,23 +24,23 @@ export default () => {
       // onSlideChange={() => console.log("slide change")}
     >
       <SwiperSlide>
-        <div className="w-1/4 mx-auto">
+        <div className="w-1/4 mx-auto ">
           <img src="./images/products/1.jpg" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-1/4 mx-auto">
-          <img src="./images/products/2.jpg" />
+          <img src="./images/products/12.jpg" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-1/4 mx-auto">
-          <img src="./images/products/3.jpg" />
+          <img src="./images/products/6.jpg" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
         <div className="w-1/4 mx-auto">
-          <img src="./images/products/4.jpg" />
+          <img src="./images/products/19.jpg" />
         </div>
       </SwiperSlide>
     </Swiper>
