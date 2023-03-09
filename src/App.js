@@ -10,6 +10,7 @@ import OrdersList from "./pages/ordersList";
 import ErrorPage from "./pages/errorPage";
 import HomePage from "./pages/homePage";
 import CategoryPage from "./pages/categoryPage";
+import SingleProduct from "./pages/singleProduct";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <CategoryPage cat={"انگشتر"} />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/products",
+    element: (
+      <>
+        <Header />
+        <SingleProduct id={9} />
       </>
     ),
     errorElement: <ErrorPage />,

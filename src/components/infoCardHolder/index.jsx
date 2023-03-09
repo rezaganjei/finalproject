@@ -5,10 +5,12 @@ import { SlWallet } from "react-icons/sl";
 import { BiSupport } from "react-icons/bi";
 import { MdUpdate } from "react-icons/md";
 
-const InfoCardHolder = () => {
+const InfoCardHolder = ({ className }) => {
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-center items-center  p-3 gap-1 mt-[50px] mb-[100px]">
+      <div
+        className={`flex flex-col md:flex-row justify-center items-center  p-3 gap-1 mt-[50px] mb-[100px] ${className}`}
+      >
         <InfoCard>
           <TbTruckDelivery className="text-primary" />
           <p>تحویل سریع و ارزان</p>
