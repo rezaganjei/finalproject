@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 
 const UserInfo = () => {
@@ -10,7 +10,10 @@ const UserInfo = () => {
 
     formState: { errors, isSubmitSuccessful },
   } = useForm();
-  const userInfoSubmitHandler = () => {};
+  const navigate = useNavigate();
+  const userInfoSubmitHandler = () => {
+    navigate("/userpanel");
+  };
 
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min">
@@ -96,6 +99,11 @@ const UserInfo = () => {
                     value: 3,
                     message: "حد اقل ۳ کاراکتر وارد کنید",
                   },
+                  pattern: {
+                    value:
+                      /(0|\+98)?([ ]|-|[()]){0,2}9[1|2|3|4]([ ]|-|[()]){0,2}(?:[0-9]([ ]|-|[()]){0,2}){8}/,
+                    message: "فرمت صحیح وارد کنید",
+                  },
                 })}
                 id="phone"
               />
@@ -178,6 +186,7 @@ const UserInfo = () => {
           </div>
           <div></div>
         </div>
+
         <Button type="submit" className="mt-[15px] mb-[100px] self-end">
           اضافه کردن آدرس
         </Button>

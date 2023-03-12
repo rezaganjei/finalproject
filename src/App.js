@@ -14,6 +14,8 @@ import SingleProduct from "./pages/singleProduct";
 import PhoneRegistration from "./pages/phoneRegistrationPage";
 import Cart from "./pages/cart";
 import UserInfo from "./pages/userInfoPage";
+import UserPanel from "./pages/userPanel";
+import FinalizeOrder from "./pages/finalizeOrder";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +115,26 @@ const router = createBrowserRouter([
       <>
         <Header />
         <UserInfo />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/userpanel",
+    element: (
+      <>
+        <Header />
+        <UserPanel />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/finalizeorder",
+    element: (
+      <>
+        <Header />
+        <FinalizeOrder />
       </>
     ),
     errorElement: <ErrorPage />,
