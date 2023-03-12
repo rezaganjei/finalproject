@@ -3,18 +3,26 @@ import Button from "../../components/button";
 import { instance } from "../../libs/axiosInstance";
 import { BiChevronLeft } from "react-icons/bi";
 import InfoCardHolder from "../../components/infoCardHolder";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { plus } from "../../redux/reducers/checkoutCart/checkoutCart";
 
-const SingleProduct = ({ id }) => {
+const SingleProduct = ({}) => {
+  const dispatch = useDispatch();
+  const selectedProductData = useSelector((state) => state.checkoutCart);
+  const { id } = useParams();
   const [productData, setProductData] = useState({});
-  const productDataGetter = () => {
+  const productDataGetter = (id) => {
     instance
-      .get(`/products/`)
-      .then((res) => setProductData(res.data.filter((i) => i.id === id)[0]));
+      .get(`/products/${id}`)
+      .then((res) => setProductData(res.data))
+      .catch((err) => console.log(err));
   };
-  useEffect(productDataGetter, []);
+  useEffect(() => productDataGetter(id), [id]);
 
   return (
     <>
+      {console.log(id)}
       <div className="border-2 border-backgrey rounded-[10px] p-4 m-4">
         <div className="flex gap-8 pb-4 border-b-2 border-backgrey">
           <p className="flex items-center">
@@ -72,7 +80,14 @@ const SingleProduct = ({ id }) => {
                 </p>
               </div>
               <div>
-                <Button>اضافه به سبد خرید</Button>
+                <Button
+                  onClick={() => {
+                    dispatch(plus({ id: +id }));
+                    console.log(selectedProductData);
+                  }}
+                >
+                  اضافه به سبد خرید
+                </Button>
               </div>
             </div>
           </div>

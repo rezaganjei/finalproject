@@ -73,7 +73,7 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <SingleProduct id={9} />
+        <SingleProduct />
       </>
     ),
     errorElement: <ErrorPage />,

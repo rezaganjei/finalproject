@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const init = {
-  cart: [
-    {
-      productId: 1,
-      count: 2,
-    },
-  ],
+  cart: [],
 };
 
 const checkoutCartReducer = createSlice({
