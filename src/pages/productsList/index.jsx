@@ -13,7 +13,7 @@ import Pagination from "../../components/pagination";
 //
 //
 //------------------------------ADD PRODUCT MODAL-------------------------------
-const AddProduct = ({ isOpen, setIsOpen }) => {
+const AddProduct = ({ isOpen, setIsOpen, products, setProducts }) => {
   const [imageValue, setImageValue] = useState();
   const {
     register,
@@ -36,7 +36,10 @@ const AddProduct = ({ isOpen, setIsOpen }) => {
     console.log(e);
     instance
       .post("/products", bodyFormData)
-      .then((res) => console.log(res))
+      .then((res) => {
+        setProducts([...products, res.data]);
+        setIsOpen(false);
+      })
       .catch((err) => console.log(err));
   };
   return (
@@ -143,7 +146,7 @@ const AddProduct = ({ isOpen, setIsOpen }) => {
 //
 //------------------------------EDIT PRODUCT MODAL-------------------------------
 
-const EditProduct = ({ isOpen, setIsOpen, data }) => {
+const EditProduct = ({ isOpen, setIsOpen, data, products, setProducts }) => {
   const [imageValue, setImageValue] = useState();
   const {
     register,
@@ -156,30 +159,34 @@ const EditProduct = ({ isOpen, setIsOpen, data }) => {
     (state) => state.adminAuth.adminAuth.accessToken
   );
   const editProductSubmitHandler = (e) => {
-    const bodyFormData = new FormData();
-    bodyFormData.append("name", e.name);
-    bodyFormData.append("brand", e.brand);
-    bodyFormData.append("price", e.price);
-    bodyFormData.append("image", e.image);
-    bodyFormData.append("quantity", e.quantity);
-
     console.log(e);
     instance
       .put(
         `/products/${data.id}`,
-        { ...data, ...bodyFormData },
+        { ...data, ...e },
         {
           headers: {
             token: accessToken,
           },
         }
       )
-      .then((res) => console.log(res))
+      .then((res) => {
+        setProducts(
+          products.map((product) => {
+            if (product.id === data.id) {
+              return res.data;
+            }
+            return product;
+          })
+        );
+        setIsOpen(false);
+      })
       .catch((err) => console.log(err));
   };
 
   return (
     <>
+      {console.log(data)}
       {isOpen && (
         <div
           onClick={(e) => {
@@ -326,12 +333,23 @@ const ProductsList = () => {
   };
   return (
     <div className="flex flex-col items-center my-16 gap-8">
-      <AddProduct isOpen={isAddModalOpen} setIsOpen={setIsAddModalOpen} />
-      <EditProduct
-        isOpen={isEditModalOpen}
-        setIsOpen={setIsEditModalOpen}
-        data={editProductData}
-      />
+      {isAddModalOpen && (
+        <AddProduct
+          isOpen={isAddModalOpen}
+          setIsOpen={setIsAddModalOpen}
+          products={products}
+          setProducts={setProducts}
+        />
+      )}
+      {isEditModalOpen && (
+        <EditProduct
+          products={products}
+          setProducts={setProducts}
+          isOpen={isEditModalOpen}
+          setIsOpen={setIsEditModalOpen}
+          data={editProductData}
+        />
+      )}
       <p>مدیریت محصولات:</p>
 
       <table className=" w-4/5 mx-auto  border border-secondary rounded-lg text-center ">
@@ -514,7 +532,13 @@ const ProductsList = () => {
                           .delete(`/products/${item.id}`, {
                             headers: { token: accessToken },
                           })
-                          .then((res) => setProducts(products))
+                          .then((res) =>
+                            setProducts(
+                              products.filter(
+                                (product) => product.id !== item.id
+                              )
+                            )
+                          )
                           .catch((err) => console.log(err));
                       }}
                     />

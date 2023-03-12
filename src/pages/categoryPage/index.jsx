@@ -4,7 +4,8 @@ import { instance } from "../../libs/axiosInstance";
 
 const CategoryPage = ({ cat }) => {
   const [products, setProducts] = useState([]);
-  const [sortedProducts, setSortedProducts] = useState([]);
+
+  const [sortingValue, setSortingValue] = useState("cheap");
   const productsGetter = () => {
     instance
       .get("/products")
@@ -12,6 +13,21 @@ const CategoryPage = ({ cat }) => {
       .catch((err) => console.log(err));
   };
   useEffect(productsGetter, []);
+  const sortProducts = (productList) => {
+    if (sortingValue === "cheap") {
+      let temp = productList;
+      return temp.sort((a, b) => a.price - b.price);
+    }
+    if (sortingValue === "expensive") {
+      let temp = productList;
+      return temp.sort((a, b) => b.price - a.price);
+    }
+    if (sortingValue === "new") {
+      let temp = productList;
+      return temp.sort((a, b) => b.createdAt - a.createdAt);
+    }
+    return productList;
+  };
 
   const selectedCategoryProducts = products.filter(
     (item) => item.brand === cat
@@ -22,14 +38,19 @@ const CategoryPage = ({ cat }) => {
       <h1 className="text-center p-16">{cat}</h1>
       <div className="flex gap-2 border-b-2 border-backgrey pb-[34px] mb-[20px] items-center">
         <p>مرتب سازی بر اساس:</p>
-        <select className="border-2 border-backgrey rounded-[10px] p-[12px] pl-[28px] text-textgrey">
-          <option>ارزانترین</option>
-          <option>گرانترین</option>
-          <option>جدیدترین</option>
+        <select
+          onChange={(e) => {
+            setSortingValue(e.target.value);
+          }}
+          className="border-2 border-backgrey rounded-[10px] p-[12px] pl-[28px] text-textgrey"
+        >
+          <option value="cheap">ارزانترین</option>
+          <option value="expensive">گرانترین</option>
+          <option value="new">جدیدترین</option>
         </select>
       </div>
       <div className="flex flex-col items-center md:flex-row md:justify-center flex-wrap">
-        {selectedCategoryProducts.map((item) => {
+        {sortProducts(selectedCategoryProducts).map((item) => {
           return (
             <div className="w-[200px] lg:w-[19%]" key={item.id}>
               <ProductCard
