@@ -8,7 +8,7 @@ const SingleProduct = ({ id }) => {
   const [productData, setProductData] = useState({});
   const productDataGetter = () => {
     instance
-      .get(`/products`)
+      .get(`/products/`)
       .then((res) => setProductData(res.data.filter((i) => i.id === id)[0]));
   };
   useEffect(productDataGetter, []);

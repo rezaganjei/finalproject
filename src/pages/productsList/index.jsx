@@ -5,6 +5,7 @@ import Button from "../../components/button";
 import { instance } from "../../libs/axiosInstance";
 import { FaEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Pagination from "../../components/pagination";
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -202,7 +203,7 @@ const EditProduct = ({ isOpen, setIsOpen, data }) => {
                 })}
                 type="text"
                 placeholder="نام محصول..."
-                value={data.name}
+                defaultValue={data.name}
               />
               {errors.name && (
                 <p className="text-xs text-primary">{errors.name.message}</p>
@@ -216,7 +217,7 @@ const EditProduct = ({ isOpen, setIsOpen, data }) => {
                 })}
                 type="text"
                 placeholder="دسته بندی..."
-                value={data.brand}
+                defaultValue={data.brand}
               />
               {errors.brand && (
                 <p className="text-xs text-primary">{errors.brand.message}</p>
@@ -230,7 +231,7 @@ const EditProduct = ({ isOpen, setIsOpen, data }) => {
                 })}
                 type="number"
                 placeholder="قیمت..."
-                value={data.price}
+                defaultValue={data.price}
               />
               {errors.price && (
                 <p className="text-xs text-primary">{errors.price.message}</p>
@@ -245,7 +246,7 @@ const EditProduct = ({ isOpen, setIsOpen, data }) => {
                 type="number"
                 min={0}
                 placeholder="موجودی..."
-                value={data.quantity}
+                defaultValue={data.quantity}
               />
               {errors.price && (
                 <p className="text-xs text-primary">{errors.price.message}</p>
@@ -290,6 +291,8 @@ const ProductsList = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editProductData, setEditProductData] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductssPerPage] = useState(5);
 
   const accessToken = useSelector(
     (state) => state.adminAuth.adminAuth.accessToken
@@ -302,6 +305,25 @@ const ProductsList = () => {
       .catch((err) => console.log(err));
   };
   useEffect(productsGetter, []);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const totalPage = Math.ceil(products.length / productsPerPage);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const rightPaginate = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const leftPaginate = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   return (
     <div className="flex flex-col items-center my-16 gap-8">
       <AddProduct isOpen={isAddModalOpen} setIsOpen={setIsAddModalOpen} />
@@ -323,7 +345,7 @@ const ProductsList = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((item, index) => {
+          {currentProducts.map((item, index) => {
             return (
               <tr
                 className={index % 2 === 0 ? "bg-backgrey h-9" : "h-9"}
@@ -334,18 +356,33 @@ const ProductsList = () => {
                   <button
                     className=" bg-secondary text-white px-[5px] w-[20px] rounded-[10px] mx-2"
                     onClick={() => {
-                      instance.put(
-                        `/products/${item.id}`,
-                        {
-                          ...item,
-                          price: item.price + 1,
-                        },
-                        {
-                          headers: {
-                            token: accessToken,
+                      instance
+                        .put(
+                          `/products/${item.id}`,
+                          {
+                            ...item,
+                            price: item.price + 1,
                           },
-                        }
-                      );
+                          {
+                            headers: {
+                              token: accessToken,
+                            },
+                          }
+                        )
+                        .then((res) =>
+                          setProducts(
+                            products.map((product) => {
+                              if (product.id === item.id) {
+                                return {
+                                  ...product,
+                                  price: res.data.price,
+                                };
+                              } else {
+                                return product;
+                              }
+                            })
+                          )
+                        );
                     }}
                   >
                     +
@@ -354,18 +391,33 @@ const ProductsList = () => {
                   <button
                     className=" bg-secondary text-white w-[20px] px-[5px] rounded-[10px] mx-2"
                     onClick={() => {
-                      instance.put(
-                        `/products/${item.id}`,
-                        {
-                          ...item,
-                          price: item.price - 1,
-                        },
-                        {
-                          headers: {
-                            token: accessToken,
+                      instance
+                        .put(
+                          `/products/${item.id}`,
+                          {
+                            ...item,
+                            price: item.price - 1,
                           },
-                        }
-                      );
+                          {
+                            headers: {
+                              token: accessToken,
+                            },
+                          }
+                        )
+                        .then((res) =>
+                          setProducts(
+                            products.map((product) => {
+                              if (product.id === item.id) {
+                                return {
+                                  ...product,
+                                  price: res.data.price,
+                                };
+                              } else {
+                                return product;
+                              }
+                            })
+                          )
+                        );
                     }}
                   >
                     -
@@ -375,18 +427,33 @@ const ProductsList = () => {
                   <button
                     className=" bg-secondary text-white px-[5px] w-[20px] rounded-[10px] mx-2"
                     onClick={() => {
-                      instance.put(
-                        `/products/${item.id}`,
-                        {
-                          ...item,
-                          quantity: item.quantity ? item.quantity + 1 : 1,
-                        },
-                        {
-                          headers: {
-                            token: accessToken,
+                      instance
+                        .put(
+                          `/products/${item.id}`,
+                          {
+                            ...item,
+                            quantity: item.quantity ? item.quantity + 1 : 1,
                           },
-                        }
-                      );
+                          {
+                            headers: {
+                              token: accessToken,
+                            },
+                          }
+                        )
+                        .then((res) =>
+                          setProducts(
+                            products.map((product) => {
+                              if (product.id === item.id) {
+                                return {
+                                  ...product,
+                                  quantity: res.data.quantity,
+                                };
+                              } else {
+                                return product;
+                              }
+                            })
+                          )
+                        );
                     }}
                   >
                     +
@@ -395,18 +462,33 @@ const ProductsList = () => {
                   <button
                     className=" bg-secondary text-white px-[5px] w-[20px] rounded-[10px] mx-2"
                     onClick={() => {
-                      instance.put(
-                        `/products/${item.id}`,
-                        {
-                          ...item,
-                          quantity: item.quantity > 0 ? item.quantity - 1 : 0,
-                        },
-                        {
-                          headers: {
-                            token: accessToken,
+                      instance
+                        .put(
+                          `/products/${item.id}`,
+                          {
+                            ...item,
+                            quantity: item.quantity > 0 ? item.quantity - 1 : 0,
                           },
-                        }
-                      );
+                          {
+                            headers: {
+                              token: accessToken,
+                            },
+                          }
+                        )
+                        .then((res) =>
+                          setProducts(
+                            products.map((product) => {
+                              if (product.id === item.id) {
+                                return {
+                                  ...product,
+                                  quantity: res.data.quantity,
+                                };
+                              } else {
+                                return product;
+                              }
+                            })
+                          )
+                        );
                     }}
                   >
                     -
@@ -432,7 +514,7 @@ const ProductsList = () => {
                           .delete(`/products/${item.id}`, {
                             headers: { token: accessToken },
                           })
-                          .then((res) => console.log(res))
+                          .then((res) => setProducts(products))
                           .catch((err) => console.log(err));
                       }}
                     />
@@ -443,6 +525,13 @@ const ProductsList = () => {
           })}
         </tbody>
       </table>
+      <Pagination
+        productsPerPage={productsPerPage}
+        totalProducts={products.length}
+        paginate={paginate}
+        rightPaginate={rightPaginate}
+        leftPaginate={leftPaginate}
+      />
       <Button className=" w-[300px]" onClick={() => setIsAddModalOpen(true)}>
         افزودن کالا
       </Button>

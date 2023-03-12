@@ -38,16 +38,18 @@ const BurgerMenu = ({ isOpen, setIsOpen }) => {
               <Link to="/login" className="whitespace-nowrap">
                 ورود/عضویت
               </Link>
-              <Button className="w-2/3">
-                <div className="flex items-center h-[40px]  justify-center ">
-                  <div className="flex items-center justify-center p-1 gap-1">
-                    <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
-                      1
+              <Link to="/phone">
+                <Button className="w-2/3">
+                  <div className="flex items-center h-[40px]  justify-center ">
+                    <div className="flex items-center justify-center p-1 gap-1">
+                      <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
+                        1
+                      </div>
+                      <AiOutlineShoppingCart />
                     </div>
-                    <AiOutlineShoppingCart />
                   </div>
-                </div>
-              </Button>
+                </Button>
+              </Link>
             </div>
             <nav className="bg-backgrey flex flex-col items-center justify-center h-[250px] gap-6">
               <Link to="/bracelet">
@@ -94,17 +96,19 @@ const Header = () => {
             <Link to="/login" className="whitespace-nowrap ml-[25px]">
               ورود/عضویت
             </Link>
-            <Button>
-              <div className="flex items-center h-[40px] w-[170px] justify-center ">
-                <div className="flex items-center justify-center p-1 gap-1">
-                  <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
-                    1
+            <Link to="/phone">
+              <Button>
+                <div className="flex items-center h-[40px] w-[170px] justify-center ">
+                  <div className="flex items-center justify-center p-1 gap-1">
+                    <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
+                      1
+                    </div>
+                    <AiOutlineShoppingCart />
                   </div>
-                  <AiOutlineShoppingCart />
+                  <div className="text-[14px]">سبد خرید شما</div>
                 </div>
-                <div className="text-[14px]">سبد خرید شما</div>
-              </div>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
         <button

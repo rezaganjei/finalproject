@@ -11,6 +11,9 @@ import ErrorPage from "./pages/errorPage";
 import HomePage from "./pages/homePage";
 import CategoryPage from "./pages/categoryPage";
 import SingleProduct from "./pages/singleProduct";
+import PhoneRegistration from "./pages/phoneRegistrationPage";
+import Cart from "./pages/cart";
+import UserInfo from "./pages/userInfoPage";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +83,36 @@ const router = createBrowserRouter([
       <>
         <Header />
         <LoginPage />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/phone",
+    element: (
+      <>
+        <Header />
+        <PhoneRegistration />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/cart",
+    element: (
+      <>
+        <Header />
+        <Cart />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/userinfo",
+    element: (
+      <>
+        <Header />
+        <UserInfo />
       </>
     ),
     errorElement: <ErrorPage />,

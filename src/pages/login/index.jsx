@@ -19,7 +19,7 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    control,
+
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
