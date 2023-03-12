@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import ProductCard from "../../components/productCard";
 import { instance } from "../../libs/axiosInstance";
 
@@ -53,10 +54,12 @@ const CategoryPage = ({ cat }) => {
         {sortProducts(selectedCategoryProducts).map((item) => {
           return (
             <div className="w-[200px] lg:w-[19%]" key={item.id}>
-              <ProductCard
-                dataObject={item}
-                className="border-2 border-backgrey m-2 rounded-[10px] p-2"
-              />
+              <Link to={`/products/${item.id}`}>
+                <ProductCard
+                  dataObject={item}
+                  className="border-2 border-backgrey m-2 rounded-[10px] p-2"
+                />
+              </Link>
             </div>
           );
         })}

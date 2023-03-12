@@ -22,7 +22,6 @@ const SingleProduct = ({}) => {
 
   return (
     <>
-      {console.log(id)}
       <div className="border-2 border-backgrey rounded-[10px] p-4 m-4">
         <div className="flex gap-8 pb-4 border-b-2 border-backgrey">
           <p className="flex items-center">

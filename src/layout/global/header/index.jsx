@@ -6,6 +6,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import NavButton from "../../../components/NavButton";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const BurgerMenu = ({ isOpen, setIsOpen }) => {
   return (
@@ -73,6 +74,7 @@ const BurgerMenu = ({ isOpen, setIsOpen }) => {
 };
 const Header = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const cartItemCount = useSelector((state) => state.checkoutCart.cart.length);
   return (
     <>
       <header>
@@ -101,7 +103,7 @@ const Header = () => {
                 <div className="flex items-center h-[40px] w-[170px] justify-center ">
                   <div className="flex items-center justify-center p-1 gap-1">
                     <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
-                      1
+                      {cartItemCount}
                     </div>
                     <AiOutlineShoppingCart />
                   </div>

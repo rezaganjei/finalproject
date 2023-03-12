@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/button";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { instance } from "../../libs/axiosInstance";
 
 const dummyData = [
   {
@@ -24,6 +26,17 @@ const dummyData = [
   },
 ];
 const Cart = () => {
+  const checkoutCartData = useSelector((state) => state.checkoutCart.cart);
+  const [productData, setProductData] = useState([]);
+
+  const productDataGetter = () => {
+    instance
+      .get(`/products`)
+      .then((res) => setProductData(res.data))
+      .catch((err) => console.log(err));
+  };
+  useEffect(() => productDataGetter(), []);
+
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min flex flex-col">
       <div className="flex items-center  flex-col md:flex-row ">
@@ -61,19 +74,32 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {dummyData.map((item) => {
+            {checkoutCartData.map((item) => {
+              const filteredProducts = productData.find(
+                (i) => i.id === item.productId
+              );
               return (
                 <>
-                  <tr className="text-center border-b-2 border-backgrey">
+                  {console.log(filteredProducts)}
+                  <tr
+                    className="text-center border-b-2 border-backgrey"
+                    key={item.productId}
+                  >
                     <td className="flex items-center justify-center">
                       <div className="w-[100px] ">
-                        <img src={item.image} />
+                        <img
+                          src={`http://localhost:3002${filteredProducts.image}`}
+                        />
                       </div>
                     </td>
-                    <td>{item.name}</td>
-                    <td>{item.count}</td>
-                    <td>{item.price}</td>
-                    <td>{item.count * item.price}</td>
+                    <td>{filteredProducts.name}</td>
+                    <td>{(+item.count).toLocaleString("fa-IR")}</td>
+                    <td>{(+filteredProducts.price).toLocaleString("fa-IR")}</td>
+                    <td>
+                      {(+item.count * +filteredProducts.price).toLocaleString(
+                        "fa-IR"
+                      )}
+                    </td>
                     <td>
                       <RiDeleteBin6Line className="text-center mx-auto text-primary" />
                     </td>
