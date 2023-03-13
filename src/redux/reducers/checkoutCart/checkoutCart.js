@@ -36,8 +36,18 @@ const checkoutCartReducer = createSlice({
         }
       }
     },
+    remove: (state, action) => {
+      const finder = state.cart.find(
+        (item) => item.productId === action.payload.id
+      );
+      if (finder) {
+        state.cart = state.cart.filter(
+          (item) => item.productId !== action.payload.id
+        );
+      }
+    },
   },
 });
 
-export const { plus, minus } = checkoutCartReducer.actions;
+export const { plus, minus, remove } = checkoutCartReducer.actions;
 export default checkoutCartReducer.reducer;

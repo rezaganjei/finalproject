@@ -4,7 +4,12 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { instance } from "../../libs/axiosInstance";
-import { minus, plus } from "../../redux/reducers/checkoutCart/checkoutCart";
+import {
+  minus,
+  plus,
+  remove,
+} from "../../redux/reducers/checkoutCart/checkoutCart";
+import { add } from "../../redux/reducers/ordersHandler/ordersHandler";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -28,6 +33,11 @@ const Cart = () => {
         });
 
         setProductData(newProductList);
+        setTotalPrice(
+          productData
+            .map((item) => +item.price * +item.count)
+            .reduce((a, b) => a + b, 0)
+        );
       })
       .catch((err) => console.log(err));
   };
@@ -109,7 +119,14 @@ const Cart = () => {
                       {(+item.count * +item.price).toLocaleString("fa-IR")}
                     </td>
                     <td>
-                      <RiDeleteBin6Line className="text-center mx-auto text-primary" />
+                      <button
+                        className="text-center p-1"
+                        onClick={() => {
+                          dispatch(remove({ id: +item.id }));
+                        }}
+                      >
+                        <RiDeleteBin6Line className="text-center mx-auto text-primary" />
+                      </button>
                     </td>
                   </tr>
                 </>
