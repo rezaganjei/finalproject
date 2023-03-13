@@ -5,17 +5,21 @@ import { BiChevronLeft } from "react-icons/bi";
 import InfoCardHolder from "../../components/infoCardHolder";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { plus } from "../../redux/reducers/checkoutCart/checkoutCart";
+import { minus, plus } from "../../redux/reducers/checkoutCart/checkoutCart";
 
 const SingleProduct = ({}) => {
   const dispatch = useDispatch();
   const selectedProductData = useSelector((state) => state.checkoutCart);
   const { id } = useParams();
   const [productData, setProductData] = useState({});
+  const [quantity, setQuantity] = useState();
   const productDataGetter = (id) => {
     instance
       .get(`/products/${id}`)
-      .then((res) => setProductData(res.data))
+      .then((res) => {
+        setProductData(res.data);
+        setQuantity(res.data.quantity);
+      })
       .catch((err) => console.log(err));
   };
   useEffect(() => productDataGetter(id), [id]);
@@ -79,14 +83,45 @@ const SingleProduct = ({}) => {
                 </p>
               </div>
               <div>
-                <Button
-                  onClick={() => {
-                    dispatch(plus({ id: +id }));
-                    console.log(selectedProductData);
-                  }}
-                >
-                  اضافه به سبد خرید
-                </Button>
+                {selectedProductData.cart.find((item) => item.productId === +id)
+                  ?.count ? (
+                  <div className="flex items-center gap-8">
+                    <Button
+                      onClick={() => {
+                        if (
+                          quantity >
+                          selectedProductData.cart.find(
+                            (item) => item.productId === +id
+                          ).count
+                        ) {
+                          dispatch(plus({ id: +id }));
+                        }
+                      }}
+                    >
+                      +
+                    </Button>
+                    <p>
+                      {selectedProductData.cart
+                        .find((item) => item.productId === +id)
+                        .count.toLocaleString("fa-IR")}
+                    </p>
+                    <Button
+                      onClick={() => {
+                        dispatch(minus({ id: +id }));
+                      }}
+                    >
+                      -
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      dispatch(plus({ id: +id }));
+                    }}
+                  >
+                    اضافه به سبد خرید
+                  </Button>
+                )}
               </div>
             </div>
           </div>

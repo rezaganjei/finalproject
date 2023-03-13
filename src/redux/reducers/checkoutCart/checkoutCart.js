@@ -30,7 +30,9 @@ const checkoutCartReducer = createSlice({
         if (finder.count > 1) {
           finder.count -= 1;
         } else {
-          state.cart.filter((item) => item.productId !== action.payload.id);
+          state.cart = state.cart.filter(
+            (item) => item.productId !== action.payload.id
+          );
         }
       }
     },

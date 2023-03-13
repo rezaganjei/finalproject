@@ -2,40 +2,36 @@ import React, { useEffect, useState } from "react";
 import Button from "../../components/button";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { instance } from "../../libs/axiosInstance";
+import { minus, plus } from "../../redux/reducers/checkoutCart/checkoutCart";
 
-const dummyData = [
-  {
-    name: "reza",
-    image: "./images/products/1.jpg",
-    price: 150000,
-    count: 5,
-  },
-  {
-    name: "reza2",
-    image: "./images/products/2.jpg",
-    price: 150000,
-    count: 5,
-  },
-  {
-    name: "reza3",
-    image: "./images/products/3.jpg",
-    price: 150000,
-    count: 3,
-  },
-];
 const Cart = () => {
+  const dispatch = useDispatch();
   const checkoutCartData = useSelector((state) => state.checkoutCart.cart);
   const [productData, setProductData] = useState([]);
 
   const productDataGetter = () => {
     instance
       .get(`/products`)
-      .then((res) => setProductData(res.data))
+      .then((res) => {
+        const newProductList = checkoutCartData.map((item) => {
+          const fetchedData = res.data.filter(
+            (i) => i.id === item.productId
+          )[0];
+
+          return {
+            ...fetchedData,
+            count: item.count,
+          };
+        });
+        setProductData(newProductList);
+      })
       .catch((err) => console.log(err));
   };
-  useEffect(() => productDataGetter(), []);
+  useEffect(() => {
+    productDataGetter();
+  }, [checkoutCartData]);
 
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min flex flex-col">
@@ -74,31 +70,31 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {checkoutCartData.map((item) => {
-              const filteredProducts = productData.find(
-                (i) => i.id === item.productId
-              );
+            {productData.map((item) => {
               return (
                 <>
-                  {console.log(filteredProducts)}
                   <tr
                     className="text-center border-b-2 border-backgrey"
-                    key={item.productId}
+                    key={item.id}
                   >
                     <td className="flex items-center justify-center">
                       <div className="w-[100px] ">
-                        <img
-                          src={`http://localhost:3002${filteredProducts.image}`}
-                        />
+                        <img src={`http://localhost:3002${item.image}`} />
                       </div>
                     </td>
-                    <td>{filteredProducts.name}</td>
-                    <td>{(+item.count).toLocaleString("fa-IR")}</td>
-                    <td>{(+filteredProducts.price).toLocaleString("fa-IR")}</td>
+                    <td>{item.name}</td>
                     <td>
-                      {(+item.count * +filteredProducts.price).toLocaleString(
-                        "fa-IR"
-                      )}
+                      <button className="bg-secondary text-white rounded px-1 mx-1 w-5">
+                        +
+                      </button>
+                      {(+item.count).toLocaleString("fa-IR")}
+                      <button className="bg-secondary text-white rounded px-1 mx-1 w-5">
+                        -
+                      </button>
+                    </td>
+                    <td>{(+item.price).toLocaleString("fa-IR")}</td>
+                    <td>
+                      {(+item.count * +item.price).toLocaleString("fa-IR")}
                     </td>
                     <td>
                       <RiDeleteBin6Line className="text-center mx-auto text-primary" />
@@ -117,7 +113,7 @@ const Cart = () => {
                 <p>قیمت کل محصولات :</p>
               </td>
               <td>
-                <span>450000</span>
+                <span></span>
                 <span> </span>تومان
               </td>
             </tr>

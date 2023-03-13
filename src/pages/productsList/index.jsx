@@ -379,7 +379,7 @@ const ProductsList = () => {
                           `/products/${item.id}`,
                           {
                             ...item,
-                            price: item.price + 1,
+                            price: +item.price + 1,
                           },
                           {
                             headers: {
@@ -414,7 +414,7 @@ const ProductsList = () => {
                           `/products/${item.id}`,
                           {
                             ...item,
-                            price: item.price - 1,
+                            price: +item.price - 1,
                           },
                           {
                             headers: {
@@ -450,7 +450,7 @@ const ProductsList = () => {
                           `/products/${item.id}`,
                           {
                             ...item,
-                            quantity: item.quantity ? item.quantity + 1 : 1,
+                            quantity: item.quantity ? +item.quantity + 1 : 1,
                           },
                           {
                             headers: {
@@ -485,7 +485,8 @@ const ProductsList = () => {
                           `/products/${item.id}`,
                           {
                             ...item,
-                            quantity: item.quantity > 0 ? item.quantity - 1 : 0,
+                            quantity:
+                              item.quantity > 0 ? +item.quantity - 1 : 0,
                           },
                           {
                             headers: {
