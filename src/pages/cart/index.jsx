@@ -84,13 +84,23 @@ const Cart = () => {
                     </td>
                     <td>{item.name}</td>
                     <td>
-                      <button className="bg-secondary text-white rounded px-1 mx-1 w-5">
+                      <Button
+                        className="bg-secondary text-white rounded px-1 mx-1 w-5"
+                        onClick={() => {
+                          dispatch(plus({ id: +item.id }));
+                        }}
+                      >
                         +
-                      </button>
+                      </Button>
                       {(+item.count).toLocaleString("fa-IR")}
-                      <button className="bg-secondary text-white rounded px-1 mx-1 w-5">
+                      <Button
+                        className="bg-secondary text-white rounded px-1 mx-1 w-5"
+                        onClick={() => {
+                          dispatch(minus({ id: +item.id }));
+                        }}
+                      >
                         -
-                      </button>
+                      </Button>
                     </td>
                     <td>{(+item.price).toLocaleString("fa-IR")}</td>
                     <td>
