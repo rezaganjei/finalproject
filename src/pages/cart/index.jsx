@@ -10,6 +10,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const checkoutCartData = useSelector((state) => state.checkoutCart.cart);
   const [productData, setProductData] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const productDataGetter = () => {
     instance
@@ -25,6 +26,7 @@ const Cart = () => {
             count: item.count,
           };
         });
+
         setProductData(newProductList);
       })
       .catch((err) => console.log(err));
@@ -123,7 +125,12 @@ const Cart = () => {
                 <p>قیمت کل محصولات :</p>
               </td>
               <td>
-                <span></span>
+                <span>
+                  {productData
+                    .map((item) => +item.price * +item.count)
+                    .reduce((a, b) => a + b, 0)
+                    .toLocaleString("fa-IR")}
+                </span>
                 <span> </span>تومان
               </td>
             </tr>
