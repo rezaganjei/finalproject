@@ -88,7 +88,7 @@ const LoginPage = () => {
           <p className="text-xs text-primary">{errors.password.message}</p>
         )}
 
-        <Button type="submit">submit</Button>
+        <Button type="submit">ورود</Button>
       </form>
       <p className="p-4 w-4/5 sm:w-3/5 mx-auto md:w-1/2 lg:w-[460px]  text-blue-700 text-[15px] mb-[110px] mt-[64px]">
         با ورود به فرجان گالری، شرایط استفاده و قوانین و مقررات را می‌پذیرم.

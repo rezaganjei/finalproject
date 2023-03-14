@@ -24,7 +24,7 @@ export default () => {
       // onSlideChange={() => console.log("slide change")}
     >
       <SwiperSlide>
-        <div className="w-1/3 mx-auto py-4 ">
+        <div className="w-1/3 mx-auto py-8 ">
           <img src="./images/main.jpeg" />
         </div>
       </SwiperSlide>

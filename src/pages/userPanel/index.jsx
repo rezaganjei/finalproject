@@ -19,7 +19,7 @@ const UserPanel = () => {
   const userInfoSubmitHandler = () => {
     console.log("done");
     instance.post("/orders", paymentUserInfoData);
-    // navigate("/finalizeorder");
+    navigate("/finalizeorder");
   };
 
   return (
