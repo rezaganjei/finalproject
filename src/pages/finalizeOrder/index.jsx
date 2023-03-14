@@ -1,14 +1,19 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
 
 const FinalizeOrder = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
 
     formState: { errors, isSubmitSuccessful },
   } = useForm();
+  const submitHandler = () => {
+    navigate("/paymentsuccess");
+  };
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min">
       <div className="flex flex-col md:flex-row items-center">
@@ -35,7 +40,7 @@ const FinalizeOrder = () => {
       </div>
       <div>
         <form
-          onSubmit={handleSubmit()}
+          onSubmit={handleSubmit(submitHandler)}
           className="flex flex-col w-4/5 sm:w-3/5 mx-auto md:w-1/2 lg:w-[460px] border-backgrey border-2 p-[31px] gap-[22px] mt-[110px] rounded-[10px] shadow-md"
         >
           <label htmlFor="cardnumber">شماره کارت خود را وارد کنید</label>
@@ -152,7 +157,7 @@ const FinalizeOrder = () => {
             <p className="text-xs text-primary">{errors.pass.message}</p>
           )}
           <div className="flex w-full gap-2">
-            <Button type="submit" className="w-3/4" onSubmit={handleSubmit()}>
+            <Button type="submit" className="w-3/4">
               پرداخت
             </Button>
             <Button type="submit" className="w-1/4 bg-secondary">

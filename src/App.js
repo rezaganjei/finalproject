@@ -16,6 +16,7 @@ import Cart from "./pages/cart";
 import UserInfo from "./pages/userInfoPage";
 import UserPanel from "./pages/userPanel";
 import FinalizeOrder from "./pages/finalizeOrder";
+import SuccessfullPayment from "./pages/succecfulpay";
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <FinalizeOrder />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/paymentsuccess",
+    element: (
+      <>
+        <Header />
+        <SuccessfullPayment />
       </>
     ),
     errorElement: <ErrorPage />,
