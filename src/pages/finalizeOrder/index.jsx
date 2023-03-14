@@ -1,9 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
+import { instance } from "../../libs/axiosInstance";
+import { clear } from "../../redux/reducers/checkoutCart/checkoutCart";
 
 const FinalizeOrder = () => {
+  const dispatch = useDispatch();
+  const paymentUserInfoData = useSelector(
+    (state) => state.ordersHandler.orders
+  );
   const navigate = useNavigate();
   const {
     register,
@@ -12,6 +19,11 @@ const FinalizeOrder = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const submitHandler = () => {
+    instance
+      .post("/orders", paymentUserInfoData)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+    dispatch(clear());
     navigate("/paymentsuccess");
   };
   return (

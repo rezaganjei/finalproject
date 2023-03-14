@@ -46,8 +46,11 @@ const checkoutCartReducer = createSlice({
         );
       }
     },
+    clear: (state) => {
+      state.cart = [];
+    },
   },
 });
 
-export const { plus, minus, remove } = checkoutCartReducer.actions;
+export const { plus, minus, remove, clear } = checkoutCartReducer.actions;
 export default checkoutCartReducer.reducer;

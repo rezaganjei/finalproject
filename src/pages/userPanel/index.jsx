@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
-import { instance } from "../../libs/axiosInstance";
 
 const UserPanel = () => {
   const navigate = useNavigate();
@@ -17,8 +16,6 @@ const UserPanel = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const userInfoSubmitHandler = () => {
-    console.log("done");
-    instance.post("/orders", paymentUserInfoData);
     navigate("/finalizeorder");
   };
 
