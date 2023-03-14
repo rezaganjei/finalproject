@@ -1,7 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
+import { addInfo } from "../../redux/reducers/ordersHandler/ordersHandler";
 
 const UserInfo = () => {
   const {
@@ -11,12 +13,17 @@ const UserInfo = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
   const navigate = useNavigate();
-  const userInfoSubmitHandler = () => {
+  const userInfoSubmitHandler = (data) => {
+    dispatch(addInfo(data));
+
     navigate("/userpanel");
   };
+  const orderInfoObject = useSelector((state) => state.ordersHandler.orders);
+  const dispatch = useDispatch();
 
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min">
+      {console.log(orderInfoObject)}
       <div className="flex flex-col md:flex-row items-center">
         <div>
           <div className="rounded-[50%] w-[100px] h-[100px] border-2 border-backgrey text-2xl justify-center flex items-center">

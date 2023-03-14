@@ -1,19 +1,30 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/button";
+import { instance } from "../../libs/axiosInstance";
 
 const UserPanel = () => {
+  const navigate = useNavigate();
+  const paymentUserInfoData = useSelector(
+    (state) => state.ordersHandler.orders
+  );
   const {
     register,
     handleSubmit,
 
     formState: { errors, isSubmitSuccessful },
   } = useForm();
-  const userInfoSubmitHandler = () => {};
+  const userInfoSubmitHandler = () => {
+    console.log("done");
+    instance.post("/orders", paymentUserInfoData);
+    // navigate("/finalizeorder");
+  };
 
   return (
     <div className="px-[20px] sm:px-[100px] md:px-[150px] mx-auto my-[60px] min-w-min">
+      {console.log(paymentUserInfoData)}
       <div className="flex flex-col md:flex-row items-center">
         <div>
           <div className="rounded-[50%] w-[100px] h-[100px] border-2 border-backgrey text-2xl justify-center flex items-center">
@@ -46,20 +57,24 @@ const UserPanel = () => {
           <input type="radio" name="address" className="bg-primary" checked />
           <div className="flex flex-col w-full bg-backgrey p-[11px] rounded-[10px]">
             <p>
-              گیرنده:<span>رضا</span>
+              گیرنده:
+              <span>
+                {paymentUserInfoData.name},{paymentUserInfoData.lastname}
+              </span>
             </p>
             <div className="flex flex-col md:flex-row gap-8 text-textgrey">
               <p>
-                شماره تماس:<span>09122472403</span>
+                شماره تماس:
+                <span>{paymentUserInfoData.phone}</span>
               </p>
               <p>
-                کد پستی:<span>3176635473</span>
+                کد پستی:<span>{paymentUserInfoData.zipcode}</span>
               </p>
             </div>
             <p className="text-textgrey">
-              <span>البرز,</span>
-              <span>کرج,</span>
-              <span>یبسبسیبسیبسب</span>
+              <span>{paymentUserInfoData.state},</span>
+              <span>{paymentUserInfoData.city},</span>
+              <span>{paymentUserInfoData.address}</span>
             </p>
           </div>
         </div>
@@ -103,19 +118,20 @@ const UserPanel = () => {
             <div className="flex justify-between h-full  border-b-[1px] border-textgrey py-[11px]">
               <p>هزینه ارسال (ارسال با پست)</p>
               <p>
-                18800<span>تومان</span>
+                ۰<span>تومان</span>
               </p>
             </div>
             <div className="flex justify-between h-full  border-b-[1px] border-textgrey py-[11px]">
               <p>تخفیف</p>
               <p>
-                0<span>تومان</span>
+                ۰<span>تومان</span>
               </p>
             </div>
             <div className="bg-backgrey flex justify-between h-full py-[11px]">
               <p>جمع مبلغ قابل پرداخت</p>
               <p className="text-primary font-bold">
-                307000<span>تومان</span>
+                {(+paymentUserInfoData.prices + 20000).toLocaleString("fa-IR")}
+                <span>تومان</span>
               </p>
             </div>
           </div>
@@ -125,9 +141,10 @@ const UserPanel = () => {
         <Link to="/userinfo">
           <Button size="small">بازگشت</Button>
         </Link>
-        <Link to="/finalizeorder">
-          <Button size="small">ثبت سفارش</Button>
-        </Link>
+
+        <Button size="small" onClick={handleSubmit(userInfoSubmitHandler)}>
+          ثبت سفارش
+        </Button>
       </div>
     </div>
   );

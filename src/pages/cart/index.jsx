@@ -155,7 +155,22 @@ const Cart = () => {
         </table>
       </div>
       <Link to="/userinfo" className="self-end">
-        <Button className="mt-[15px] mb-[100px]">ورود و ثبت سفارش</Button>
+        <Button
+          className="mt-[15px] mb-[100px]"
+          onClick={() => {
+            dispatch(
+              add({
+                prices: productData
+                  .map((item) => +item.price * +item.count)
+                  .reduce((a, b) => a + b, 0),
+                products: productData,
+                delivered: false,
+              })
+            );
+          }}
+        >
+          ورود و ثبت سفارش
+        </Button>
       </Link>
     </div>
   );

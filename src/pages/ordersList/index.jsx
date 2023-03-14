@@ -91,6 +91,7 @@ const OrdersList = () => {
   };
   return (
     <div className="flex flex-col items-center my-16 gap-8">
+      {console.log(orders)}
       <EditMenu
         isOpen={isEditMenuOpen}
         setIsOpen={setIsEditMenuOpen}
