@@ -24,17 +24,17 @@ export default () => {
       // onSlideChange={() => console.log("slide change")}
     >
       <SwiperSlide>
-        <div className="w-1/4 mx-auto ">
-          <img src="./images/products/1.jpg" />
+        <div className="w-1/3 mx-auto py-4 ">
+          <img src="./images/main.jpeg" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="w-1/4 mx-auto">
-          <img src="./images/products/12.jpg" />
+        <div className="w-[30%] mx-auto py-12 ">
+          <img src="./images/main2.jpg" />
         </div>
       </SwiperSlide>
       <SwiperSlide>
-        <div className="w-1/4 mx-auto">
+        <div className="w-1/4 mx-auto py-4">
           <img src="./images/products/6.jpg" />
         </div>
       </SwiperSlide>
