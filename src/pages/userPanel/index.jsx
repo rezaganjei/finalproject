@@ -109,7 +109,8 @@ const UserPanel = () => {
             <div className="flex justify-between h-full border-b-[1px] border-textgrey py-[11px]">
               <p>جمع کل سبد خرید</p>
               <p>
-                250000 <span>تومان</span>
+                {(+paymentUserInfoData.prices).toLocaleString("fa-IR")}{" "}
+                <span>تومان</span>
               </p>
             </div>
             <div className="flex justify-between h-full  border-b-[1px] border-textgrey py-[11px]">
@@ -127,7 +128,7 @@ const UserPanel = () => {
             <div className="bg-backgrey flex justify-between h-full py-[11px]">
               <p>جمع مبلغ قابل پرداخت</p>
               <p className="text-primary font-bold">
-                {(+paymentUserInfoData.prices + 20000).toLocaleString("fa-IR")}
+                {(+paymentUserInfoData.prices).toLocaleString("fa-IR")}
                 <span>تومان</span>
               </p>
             </div>
