@@ -160,7 +160,12 @@ const FinalizeOrder = () => {
             <Button type="submit" className="w-3/4">
               پرداخت
             </Button>
-            <Button type="submit" className="w-1/4 bg-secondary">
+            <Button
+              className="w-1/4 bg-secondary"
+              onClick={() => {
+                navigate("/paymentunsuccess");
+              }}
+            >
               لغو
             </Button>
           </div>

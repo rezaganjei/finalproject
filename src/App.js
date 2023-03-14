@@ -17,6 +17,7 @@ import UserInfo from "./pages/userInfoPage";
 import UserPanel from "./pages/userPanel";
 import FinalizeOrder from "./pages/finalizeOrder";
 import SuccessfullPayment from "./pages/succecfulpay";
+import UnsuccessfullPayment from "./pages/unsuccessfullPage";
 
 const router = createBrowserRouter([
   {
@@ -146,6 +147,16 @@ const router = createBrowserRouter([
       <>
         <Header />
         <SuccessfullPayment />
+      </>
+    ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/paymentunsuccess",
+    element: (
+      <>
+        <Header />
+        <UnsuccessfullPayment />
       </>
     ),
     errorElement: <ErrorPage />,
