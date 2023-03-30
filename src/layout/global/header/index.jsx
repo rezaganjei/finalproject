@@ -8,7 +8,7 @@ import NavButton from "../../../components/NavButton";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const BurgerMenu = ({ isOpen, setIsOpen }) => {
+const BurgerMenu = ({ isOpen, setIsOpen, cartItemCount }) => {
   return (
     <>
       {isOpen && (
@@ -44,7 +44,7 @@ const BurgerMenu = ({ isOpen, setIsOpen }) => {
                   <div className="flex items-center h-[40px]  justify-center ">
                     <div className="flex items-center justify-center p-1 gap-1">
                       <div className="bg-secondary h-[23px] w-[23px] rounded-[11.5px]  ">
-                        1
+                        {cartItemCount}
                       </div>
                       <AiOutlineShoppingCart />
                     </div>
@@ -78,7 +78,11 @@ const Header = () => {
   return (
     <>
       <header>
-        <BurgerMenu isOpen={isBurgerMenuOpen} setIsOpen={setIsBurgerMenuOpen} />
+        <BurgerMenu
+          isOpen={isBurgerMenuOpen}
+          setIsOpen={setIsBurgerMenuOpen}
+          cartItemCount={cartItemCount}
+        />
 
         <div className="flex flex-col gap-4 md:gap-0 md:flex-row md:justify-between p-4 items-center ">
           <Link className="flex items-center" to="/">
